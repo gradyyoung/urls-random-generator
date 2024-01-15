@@ -12,13 +12,13 @@ import (
 
 func main() {
 	// 解析命令行
-	count := *flag.Int("c", 10, "生成链接数量")
-	fileName := *flag.String("f", "urls.txt", "生成文件名称")
-	url := *flag.String("u", "https://www.ygang.top/urls.txt", "链接文件地址")
+	count := flag.Int("c", 10, "生成链接数量")
+	fileName := flag.String("f", "urls.txt", "生成文件名称")
+	url := flag.String("u", "https://www.ygang.top/urls.txt", "链接文件地址")
 	flag.Parse()
-	fmt.Println(count, fileName, url)
-	str := getRandomUrls(count, url)
-	writeToFile(fileName, strings.Join(str, "\n"))
+	fmt.Println(*count, *fileName, *url)
+	str := getRandomUrls(*count, *url)
+	writeToFile(*fileName, strings.Join(str, "\n"))
 }
 
 func writeToFile(fileName string, str string) {
