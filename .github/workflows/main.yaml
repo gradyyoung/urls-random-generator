@@ -23,7 +23,7 @@ jobs:
         run: make
       - name: baidu
         run: |
-          urls-random-generator \
+          ./urls-random-generator \
           -u https://www.ygang.top/ \
           -c 10 \
           -f urls-baidu.txt && \
