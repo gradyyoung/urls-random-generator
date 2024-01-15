@@ -1,0 +1,27 @@
+## 利用GitHub Actions每天定时给搜索引擎推送链接，提高收录率 ##
+name: searchPush
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 17 * * *'
+
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codes 
+        uses: actions/checkout@v3
+      - name: make
+        run: make
+      - name: baidu
+        run: |
+        ./urls-random-generator \
+        -u https://www.ygang.top/ \
+        -c 10 \
+        -f urls-baidu.txt && \
+        curl -H 'Content-Type:text/plain' --data-binary @urls-baidu.txt "http://data.zz.baidu.com/urls?site=https://www.ygang.top&token=${{ secrets.BAIDU_TOKEN }}" && \
+        rm -rf urls-baidu.txt
