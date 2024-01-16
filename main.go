@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -13,12 +14,22 @@ import (
 func main() {
 	// 解析命令行
 	count := flag.Int("c", 10, "生成链接数量")
-	fileName := flag.String("f", "urls.txt", "生成文件名称")
+	fileName := flag.String("f", "urls-baidu.txt", "生成文件名称")
+	searchType := flag.String("t", "baidu", "生成哪个搜索引擎的数据-baidu,bing")
 	url := flag.String("u", "https://www.ygang.top/urls.txt", "链接文件地址")
 	flag.Parse()
-	fmt.Println(*count, *fileName, *url)
-	str := getRandomUrls(*count, *url)
-	writeToFile(*fileName, strings.Join(str, "\n"))
+	fmt.Printf("Count:%d\nFileName:%s\nSearchType:%s\nUrl:%s\n", *count, *fileName, *searchType, *url)
+	urls := getRandomUrls(*count, *url)
+	var str string
+	switch *searchType {
+	case "baidu":
+		str = strings.Join(urls, "\n")
+	case "bing":
+		m := map[string]any{"siteUrl": "https://www.ygang.top/", "urlList": urls}
+		j, _ := json.Marshal(m)
+		str = string(j)
+	}
+	writeToFile(*fileName, str)
 }
 
 func writeToFile(fileName string, str string) {

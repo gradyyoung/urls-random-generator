@@ -21,9 +21,17 @@ jobs:
           go-version: 1.21.5
       - name: make
         run: make
-      - name: baidu
-        run: ./urls-random-generator  -u=https://www.ygang.top/urls.txt  -c=10  -f=urls-baidu.txt 
+        # baidu
+      - name: generate urls-baidu.txt
+        run: ./urls-random-generator  -u=https://www.ygang.top/urls.txt  -c=10  -f=urls-baidu.txt -t=baidu
       - name: push to baidu
         run: curl -H 'Content-Type:text/plain' --data-binary @urls-baidu.txt "http://data.zz.baidu.com/urls?site=https://www.ygang.top&token=${{ secrets.BAIDU_TOKEN }}"
       - name: clear urls-baidu.txt
         run: rm -rf urls-baidu.txt
+        # bing
+      - name: generate urls-bing.json
+        run: ./urls-random-generator  -u=https://www.ygang.top/urls.txt  -c=10  -f=urls-bing.json -t=bing
+      - name: push to bing
+        run: curl -H 'Content-Type:application/json; charset=utf-8​' --data-binary @urls-bing.json "https://www.bing.com/webmaster/api.svc/json/SubmitUrlbatch?apikey=${{ secrets.BING_APIKEY }}"
+      - name: clear urls-bing.json
+        run: rm -rf urls-bing.json
