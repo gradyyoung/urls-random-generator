@@ -20,7 +20,7 @@ jobs:
         with:
           go-version: 1.21.5
       - name: make
-        run: make
+        run: make all
         # baidu
       - name: generate urls-baidu.txt
         run: ./urls-random-generator  -u=https://www.ygang.top/urls.txt  -c=10  -f=urls-baidu.txt -t=baidu
