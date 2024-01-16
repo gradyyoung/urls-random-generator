@@ -25,7 +25,7 @@ func main() {
 	case "baidu":
 		str = strings.Join(urls, "\n")
 	case "bing":
-		m := map[string]any{"siteUrl": "https://www.ygang.top/", "urlList": urls}
+		m := map[string]any{"siteUrl": "https://www.ygang.top", "urlList": urls}
 		j, _ := json.Marshal(m)
 		str = string(j)
 	}
