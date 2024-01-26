@@ -23,7 +23,7 @@ jobs:
         run: make all
         # baidu
       - name: generate urls-baidu.txt
-        run: ./urls-random-generator  -u=https://www.ygang.top/urls.txt  -c=10  -f=urls-baidu.txt -t=baidu
+        run: ./urls-random-generator  -u=https://www.ygang.top/urls.txt  -c=1000  -f=urls-baidu.txt -t=baidu
       - name: push to baidu
         run: curl -H 'Content-Type:text/plain' --data-binary @urls-baidu.txt "http://data.zz.baidu.com/urls?site=https://www.ygang.top&token=${{ secrets.BAIDU_TOKEN }}"
       - name: clear urls-baidu.txt

@@ -50,6 +50,9 @@ func getRandomUrls(count int, url string) []string {
 
 	body, _ := io.ReadAll(resp.Body)
 	urls := strings.Split(string(body), "\n")
+	if count >= len(urls) {
+		return urls
+	}
 	result := make([]string, 0)
 	indexs := randomNum(len(urls), count)
 	for k, _ := range indexs {
