@@ -30,7 +30,7 @@ jobs:
         run: rm -rf urls-baidu.txt
         # bing
       - name: generate urls-bing.json
-        run: ./urls-random-generator  -u=https://www.ygang.top/urls.txt  -c=1000  -f=urls-bing.json -t=bing -bingKey=${{ secrets.BING_KEY }}"
+        run: ./urls-random-generator  -u=https://www.ygang.top/urls.txt  -c=1000  -f=urls-bing.json -t=bing -bingKey=${{ secrets.BING_KEY }}
       - name: push to bing
         run: curl -H 'Content-Type:application/json; charset=utf-8' --data-binary @urls-bing.json "https://www.bing.com/IndexNow"
       - name: clear urls-bing.json
