@@ -17,6 +17,7 @@ func main() {
 	fileName := flag.String("f", "urls-baidu.txt", "生成文件名称")
 	searchType := flag.String("t", "baidu", "生成哪个搜索引擎的数据-baidu,bing")
 	url := flag.String("u", "https://www.ygang.top/urls.txt", "链接文件地址")
+	bingKey := flag.String("bingKey", "989***************b6", "Bing提交链接时的key")
 	flag.Parse()
 	fmt.Printf("Count:%d\nFileName:%s\nSearchType:%s\nUrl:%s\n", *count, *fileName, *searchType, *url)
 	urls := getRandomUrls(*count, *url)
@@ -25,7 +26,12 @@ func main() {
 	case "baidu":
 		str = strings.Join(urls, "\n")
 	case "bing":
-		m := map[string]any{"siteUrl": "https://www.ygang.top", "urlList": urls}
+		m := map[string]any{
+			"host":        "www.ygang.top",
+			"key":         *bingKey,
+			"keyLocation": fmt.Sprintf("https://www.ygang.top/%s.txt", *bingKey),
+			"urlList":     urls,
+		}
 		j, _ := json.Marshal(m)
 		str = string(j)
 	}
